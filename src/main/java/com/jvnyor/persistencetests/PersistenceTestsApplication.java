@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Slf4j
@@ -29,6 +30,7 @@ public class PersistenceTestsApplication {
 //            grandfather.addThing(thing);
             var father = new Father();
             father.setName("Peter");
+            father.setDocumentId("123456789");
             father.setLastName("Doe");
             father.setAge(40);
             var son = new Son();
@@ -66,6 +68,18 @@ public class PersistenceTestsApplication {
             log.info("All grandfathers count: {}", allGrandfathersCount2);
             log.info("All fathers count: {}", allFathersCount2);
             log.info("All sons count: {}", allSonsCount2);
+
+            var byDocumentId = familyService.findByDocumentId("123456789");
+            var byPhone = familyService.findByPhone("123456789");
+            if (father.getDocumentId() != null && byDocumentId.isEmpty()) {
+                if (byPhone.isEmpty()) {
+                    log.error("Father not found by phone");
+                }
+                log.error("Father not found by documentId");
+            } else {
+                log.info("Father found by documentId: {}", byDocumentId.orElse(null));
+                log.info("Father found by phone: {}", byPhone.orElse(null));
+            }
         };
     }
 }

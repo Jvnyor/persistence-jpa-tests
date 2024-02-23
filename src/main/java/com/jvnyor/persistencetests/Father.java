@@ -18,6 +18,8 @@ public class Father {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sqFather")
     private Long id;
     private String name;
+    private String documentId;
+    private String phone;
     private String lastName;
     private int age;
     @ToString.Exclude

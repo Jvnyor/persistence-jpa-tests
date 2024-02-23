@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.Set;
 
 @Slf4j
@@ -106,5 +107,19 @@ public class FamilyService {
     @Transactional(readOnly = true)
     public Set<Thing> findThingsByFamilyIds(Long id, Long grandFatherId, Long fatherId, Long sonId) {
         return thingRepository.findByIdAndGrandfather_IdAndFather_IdAndSon_Id(id, grandFatherId, fatherId, sonId);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Father> findByDocumentId(String documentId) {
+        var byDocumentId = fatherRepository.findByDocumentId(documentId);
+        log.info("Father by document id: {}, exists: {}", documentId, byDocumentId.isPresent());
+        return byDocumentId;
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Father> findByPhone(String phone) {
+        var byPhone = fatherRepository.findByPhone(phone);
+        log.info("Father by phone: {}, exists: {}", phone, byPhone.isPresent());
+        return byPhone;
     }
 }
