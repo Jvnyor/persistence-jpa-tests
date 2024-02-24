@@ -1,13 +1,17 @@
 package com.jvnyor.persistencetests;
 
+import com.jvnyor.persistencetests.entities.Father;
+import com.jvnyor.persistencetests.entities.Grandfather;
+import com.jvnyor.persistencetests.entities.Son;
+import com.jvnyor.persistencetests.entities.Thing;
+import com.jvnyor.persistencetests.services.FamilyService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Slf4j
@@ -30,7 +34,8 @@ public class PersistenceTestsApplication {
 //            grandfather.addThing(thing);
             var father = new Father();
             father.setName("Peter");
-            father.setDocumentId("123456789");
+            var numbers = "123456789";
+            father.setDocumentId(numbers);
             father.setLastName("Doe");
             father.setAge(40);
             var son = new Son();
@@ -69,13 +74,13 @@ public class PersistenceTestsApplication {
             log.info("All fathers count: {}", allFathersCount2);
             log.info("All sons count: {}", allSonsCount2);
 
-            var byDocumentId = familyService.findByDocumentId("123456789");
-            var byPhone = familyService.findByPhone("123456789");
-            if (father.getDocumentId() != null && byDocumentId.isEmpty()) {
+            var byDocumentId = familyService.findByDocumentId(numbers);
+            var byPhone = familyService.findByPhone(numbers);
+            if (StringUtils.isNotBlank(father.getDocumentId()) && byDocumentId.isEmpty()) {
                 if (byPhone.isEmpty()) {
-                    log.error("Father not found by phone");
+                    log.info("Father not found by phone");
                 }
-                log.error("Father not found by documentId");
+                log.info("Father not found by documentId");
             } else {
                 log.info("Father found by documentId: {}", byDocumentId.orElse(null));
                 log.info("Father found by phone: {}", byPhone.orElse(null));

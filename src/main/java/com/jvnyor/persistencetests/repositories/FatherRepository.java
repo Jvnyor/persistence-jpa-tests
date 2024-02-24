@@ -1,5 +1,6 @@
-package com.jvnyor.persistencetests;
+package com.jvnyor.persistencetests.repositories;
 
+import com.jvnyor.persistencetests.entities.Father;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

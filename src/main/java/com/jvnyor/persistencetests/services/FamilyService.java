@@ -1,5 +1,13 @@
-package com.jvnyor.persistencetests;
+package com.jvnyor.persistencetests.services;
 
+import com.jvnyor.persistencetests.entities.Father;
+import com.jvnyor.persistencetests.entities.Grandfather;
+import com.jvnyor.persistencetests.entities.Son;
+import com.jvnyor.persistencetests.entities.Thing;
+import com.jvnyor.persistencetests.repositories.FatherRepository;
+import com.jvnyor.persistencetests.repositories.GrandfatherRepository;
+import com.jvnyor.persistencetests.repositories.SonRepository;
+import com.jvnyor.persistencetests.repositories.ThingRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,4 +1,4 @@
-package com.jvnyor.persistencetests;
+package com.jvnyor.persistencetests.entities;
 
 import jakarta.persistence.*;
 import lombok.*;

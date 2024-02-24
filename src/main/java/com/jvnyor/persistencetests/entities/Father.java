@@ -1,4 +1,4 @@
-package com.jvnyor.persistencetests;
+package com.jvnyor.persistencetests.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,29 +12,31 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 @Entity
-@SequenceGenerator(name = "sqSon", sequenceName = "sq_son", allocationSize = 1)
-public class Son {
+@SequenceGenerator(name = "sqFather", sequenceName = "sq_father", allocationSize = 1)
+public class Father {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sqSon")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sqFather")
     private Long id;
     private String name;
+    private String documentId;
+    private String phone;
     private String lastName;
     private int age;
     @ToString.Exclude
     @OneToOne
-    @JoinColumn(name = "father_id")
-    private Father father;
+    @JoinColumn(name = "grandfather_id")
+    private Grandfather grandfather;
     @ToString.Exclude
-    @OneToMany(mappedBy = "son", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "father", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Thing> things = new LinkedHashSet<>();
 
     public void addThing(Thing thing) {
-        thing.setSon(this);
+        thing.setFather(this);
         this.things.add(thing);
     }
 
     public void addThings(Set<Thing> things) {
-        things.forEach(thing -> thing.setSon(this));
+        things.forEach(thing -> thing.setFather(this));
         this.things.addAll(things);
     }
 }
